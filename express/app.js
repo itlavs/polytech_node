@@ -15,17 +15,19 @@ app.use(function(request, response, next){
 })
 
 app.get("/", function(request, response){
-  response.send("<h1>Привет от Express!</h1>");
+  //response.send("<h1>Привет от Express!</h1>");
+  response.sendFile(__dirname + "/index.html");
   console.log("root");
 });
 
 app.get("/about", function(request, response){
-  response.send("<h1>О сайте</h1>");
+  //response.send("<h1>О сайте</h1>");
+  response.sendFile(__dirname + "/about.html");
   console.log("about");
 });
 
 app.get("/contacts", function(request, response){
-  response.send("<h1>Контакты</h1>");
+  response.send(["Я", "Мы", "Они"]);
   console.log("contacts");
 });
 
