@@ -26,6 +26,9 @@ app.use(function(request, response, next){
 //   response.sendFile(__dirname + "/about.html");
 //   console.log("about");
 // });
+app.use("/about", function(request, response){
+  response.redirect("/about.html")
+})
 
 app.get("/contacts", function(request, response){
   //response.send(["Я", "Мы", "Они"]);
