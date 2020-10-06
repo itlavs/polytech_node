@@ -3,3 +3,8 @@
 10:4:7 GET /contacts
 10:4:10 GET /about
 10:4:27 GET /
+10:8:33 GET /contacts
+10:9:22 GET /about
+10:9:22 GET /about
+10:9:43 GET /about
+10:9:51 GET /contacts

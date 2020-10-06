@@ -27,7 +27,8 @@ app.get("/about", function(request, response){
 });
 
 app.get("/contacts", function(request, response){
-  response.send(["Я", "Мы", "Они"]);
+  //response.send(["Я", "Мы", "Они"]);
+  response.status(404).send("Ресурс не найден");
   console.log("contacts");
 });
 
