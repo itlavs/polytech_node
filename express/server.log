@@ -8,3 +8,6 @@
 10:9:22 GET /about
 10:9:43 GET /about
 10:9:51 GET /contacts
+10:14:59 GET /
+10:15:3 GET /about
+10:15:9 GET /about.html
