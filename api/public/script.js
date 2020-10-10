@@ -22,9 +22,9 @@ function GetUser(id) {
     contentType: "application/json",
     success: (user) {
       var form = document.forms["user"];
-      form.elemenst["id"].value = user.id;
-      form.elemenst["name"].value = user.name;
-      form.elemenst["age"].value = user.age;
+      form.elements["id"].value = user.id;
+      form.elements["name"].value = user.name;
+      form.elements["age"].value = user.age;
     }
   })
 }
@@ -75,4 +75,11 @@ function DeleteUser(id) {
       $("tr[data-rowid='" + user.id + "']").remove();
     }
   })
+}
+
+// Сброс формы
+function reset() {
+  var form = document.forms["user"];
+  form.reset();
+  form.elements["id"].value = 0;
 }
