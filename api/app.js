@@ -39,8 +39,12 @@ app.post("/api/v1/users", jsonParser, (req, res) => {
 
   var content = fs.readFileSync("users.json", "utf8");
   var users = JSON.parse(content);
-  var id = Math.max.apply(Math, users.map((obj) => {return obj.id}));
-  user.id = id + 1;
+  if (users.length > 0){
+    var id = Math.max.apply(Math, users.map((obj) => {return obj.id}));
+    user.id = id + 1;
+  } else {
+    user.id = 1;
+  }
   users.push(user);
 
   var data = JSON.stringify(users);

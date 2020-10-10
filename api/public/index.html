@@ -6,9 +6,9 @@
     <title>Список пользователей</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
-<body>
-  <h1 class="container-sm">Список пользователей</h1>
-  <form name="user" class="container-sm">
+<body class="container-sm">
+  <h1>Список пользователей</h1>
+  <form name="user">
     <input type="hidden" name="id" value="0"/>
     <div class="form-group">
       <label for="name">Имя:</label>
@@ -19,12 +19,12 @@
       <input type="text" name="age" value="" class="form-control"/>
     </div>
     <div class="form-group">
-      <button type="submit" name="submit" class="btn btn-sm btn-primary text-light">Сохранить</button>
-      <a id="reset" name="reset" class="btn btn-sm btn-primary text-light">Очистить</a>
+      <button type="submit" name="submit" class="btn btn-dark text-light">Сохранить</button>
+      <a id="reset" name="reset" class="btn btn-dark text-light">Очистить</a>
     </div>
   </form>
-  <table class="table table-codensed table-striped table-bordered container-sm">
-      <thead>
+  <table class="table table-hover">
+      <thead class="thead-dark">
         <tr>
           <th>id</th>
           <th>Имя</th>

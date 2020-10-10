@@ -1,5 +1,5 @@
 // Получение пользователей
-function GetUsers() {
+function getUsers() {
   $.ajax({
     url: "/api/v1/users",
     type: "GET",
@@ -15,7 +15,7 @@ function GetUsers() {
 }
 
 // Получение одного пользователя
-function GetUser(id) {
+function getUser(id) {
   $.ajax({
     url: "/api/v1/users/" + id,
     type: "GET",
@@ -30,7 +30,7 @@ function GetUser(id) {
 }
 
 // Добавление пользователя
-function CreateUser(name, age) {
+function createUser(name, age) {
   $.ajax({
     url: "/api/v1/users",
     type: "POST",
@@ -47,7 +47,7 @@ function CreateUser(name, age) {
 }
 
 // Изменение пользователя
-function EditUser(id, name, age) {
+function editUser(id, name, age) {
   $.ajax({
     url: "/api/v1/users",
     type: "PUT",
@@ -65,7 +65,7 @@ function EditUser(id, name, age) {
 }
 
 // Удаление пользователя
-function DeleteUser(id) {
+function deleteUser(id) {
   $.ajax({
     url: "/api/v1/users/" + id,
     type: "DELETE",
@@ -78,11 +78,17 @@ function DeleteUser(id) {
 }
 
 // Создание строки таблицы
-var row = function (user) {
-  return "<tr data-rowid='" + user.id + "'><td>" + user.id + "</td>" +
-         "<td>" + user.name + "</td><td>" + user.age + "</td>" +
-         "<td><a class='editLink btn btn-sm btn-secondary text-light' data-id='" + user.id + "'>Изменить</a> " +
-         "<a class='removeLink btn btn-sm btn-secondary text-light' data-id='" + user.id + "'>Удалить</a></td></tr>";
+function row(user) {
+  return `<tr class="rows" data-rowid="${user.id}">
+           <td>${user.id}</td>
+           <td>${user.name}</td>
+           <td>${user.age}</td>
+           <td>
+             <button type="button" class="close" data-id="${user.id}">
+              <span aria-hidden="true">&times;</span>
+             </button>
+           </td>
+         </tr>`;
 }
 
 // Сброс формы
@@ -105,23 +111,23 @@ $("form").submit( function (e) {
   var name = this.elements["name"].value;
   var age = this.elements["age"].value;
   if (id == 0) {
-    CreateUser(name, age);
+    createUser(name, age);
   } else {
-    EditUser(id, name, age);
+    editUser(id, name, age);
   }
 })
 
-// При нажатии на кнопку Изменить - получаем пользователя в форму
-$("body").on("click", ".editLink", function () {
-  var id = $(this).data("id");
-  GetUser(id);
+// При нажатии на строку - получаем пользователя в форму
+$("body").on("click", ".rows", function () {
+  var id = $(this).data("rowid");
+  getUser(id);
 });
 
 // При нажатии на кнопку Удалить - пользователь удаляется
-$("body").on("click", ".removeLink", function () {
+$("body").on("click", ".close", function () {
   var id = $(this).data("id");
-  DeleteUser(id);
+  deleteUser(id);
 });
 
 // Загрузка пользователей
-GetUsers();
+getUsers();
