@@ -77,13 +77,6 @@ function DeleteUser(id) {
   })
 }
 
-// Сброс формы
-function reset() {
-  var form = document.forms["user"];
-  form.reset();
-  form.elements["id"].value = 0;
-}
-
 // Создание строки таблицы
 var row = function (user) {
   return "<tr data-rowid='" + user.id + "'><td>" + user.id + "</td>" +
@@ -91,3 +84,29 @@ var row = function (user) {
          "<td><a class='editLink' data-id='" + user.id "'>Изменить</a> | " +
          "<a class='removeLink' data-id='" + user.id "'>Удалить</a></td></tr>";
 }
+
+// Сброс формы
+function reset() {
+  var form = document.forms["user"];
+  form.reset();
+  form.elements["id"].value = 0;
+}
+
+// При нажатии на кнопку Сбросить очищаем форму
+$("#reset").click( (e) => {
+  e.preventDefault();
+  reset();
+})
+
+// При нажатии на кнопку Сохранить добавляем или изменяем пользователя
+$("form").submit( (e) => {
+  e.preventDefault();
+  var id = this.elements["id"].value;
+  var name = this.elements["name"].value;
+  var age = this.elements["age"].value;
+  if (id == 0) {
+    CreateUser(name, age);
+  } else {
+    EditUser(id, name, age);
+  }
+})
