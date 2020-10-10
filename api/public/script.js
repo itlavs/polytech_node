@@ -61,5 +61,18 @@ function EditUser(id, name, age) {
       reset();
       $("tr[data-rowid='" + user.id + "']").replaceWith(row(user));
     }
-  })  
+  })
+}
+
+// Удаление пользователя
+function DeleteUser(id) {
+  $.ajax({
+    url: "/api/v1/users" + id,
+    type: "DELETE",
+    contentType: "application/json",
+    success: (user) {
+      console.log(user)
+      $("tr[data-rowid='" + user.id + "']").remove();
+    }
+  })
 }
