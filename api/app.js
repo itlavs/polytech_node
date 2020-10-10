@@ -31,6 +31,23 @@ app.get("/api/v1/users/:id", (req, res) => {
   }
 })
 
+app.post("/api/v1/users", jsonParser, (req, res) => {
+  if(!req.body) return res.sendStatus(400);
+  var name = req.body.name;
+  var age = req.body.age;
+  var user = {name: name, age: age};
+
+  var content = fs.readFileSync("users.json", "utf8");
+  var users = JSON.parse(content);
+  var id = Math.max.apply(Math, users.map((obj) => {return obj.id}));
+  user.id = id + 1;
+  users.push(user);
+
+  var data = JSON.stringify(users);
+  fs.writFileSync("users.json", data);
+  res.send(user);
+})
+
 // Слушаем порт 3000
 app.listen(3000, () => {
   console.log("Сервер ожидает подключения...");
