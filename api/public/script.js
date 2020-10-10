@@ -13,3 +13,18 @@ function GetUsers() {
     }
   });
 }
+
+// Получение одного пользователя
+function GetUser(id) {
+  $.ajax({
+    url: "/api/v1/users" + id,
+    typy: "GET",
+    contentType: "application/json",
+    success: (user) {
+      var form = document.forms["user"];
+      form.elemenst["id"].value = user.id;
+      form.elemenst["name"].value = user.name;
+      form.elemenst["age"].value = user.age;
+    }
+  })
+}
