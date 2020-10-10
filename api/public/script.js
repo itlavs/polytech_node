@@ -83,3 +83,11 @@ function reset() {
   form.reset();
   form.elements["id"].value = 0;
 }
+
+// Создание строки таблицы
+var row = function (user) {
+  return "<tr data-rowid='" + user.id + "'><td>" + user.id + "</td>" +
+         "<td>" + user.name + "</td><td>" + user.age + "</td>" +
+         "<td><a class='editLink' data-id='" + user.id "'>Изменить</a> | " +
+         "<a class='removeLink' data-id='" + user.id "'>Удалить</a></td></tr>";
+}
