@@ -6,9 +6,9 @@ function GetUsers() {
     contentType: "application/json",
     success: (users) => {
       var rows = "";
-      $.each(users, (index, user) {
+      $.each(users, (index, user) => {
         rows += row(user);
-      })
+      });
       $("table tbody").append(rows);
     }
   });
@@ -20,7 +20,7 @@ function GetUser(id) {
     url: "/api/v1/users" + id,
     type: "GET",
     contentType: "application/json",
-    success: (user) {
+    success: (user) => {
       var form = document.forms["user"];
       form.elements["id"].value = user.id;
       form.elements["name"].value = user.name;
@@ -39,7 +39,7 @@ function CreateUser(name, age) {
       name: name,
       age: age
     }),
-    success: (user) {
+    success: (user) => {
       reset();
       $("table tbody").append(row(user));
     }
@@ -57,7 +57,7 @@ function EditUser(id, name, age) {
       name: name,
       age: age
     }),
-    success: (user) {
+    success: (user) => {
       reset();
       $("tr[data-rowid='" + user.id + "']").replaceWith(row(user));
     }
@@ -70,7 +70,7 @@ function DeleteUser(id) {
     url: "/api/v1/users" + id,
     type: "DELETE",
     contentType: "application/json",
-    success: (user) {
+    success: (user) => {
       console.log(user)
       $("tr[data-rowid='" + user.id + "']").remove();
     }
@@ -81,8 +81,8 @@ function DeleteUser(id) {
 var row = function (user) {
   return "<tr data-rowid='" + user.id + "'><td>" + user.id + "</td>" +
          "<td>" + user.name + "</td><td>" + user.age + "</td>" +
-         "<td><a class='editLink' data-id='" + user.id "'>Изменить</a> | " +
-         "<a class='removeLink' data-id='" + user.id "'>Удалить</a></td></tr>";
+         "<td><a class='editLink' data-id='" + user.id + "'>Изменить</a> | " +
+         "<a class='removeLink' data-id='" + user.id + "'>Удалить</a></td></tr>";
 }
 
 // Сброс формы
