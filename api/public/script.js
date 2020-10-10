@@ -18,7 +18,7 @@ function GetUsers() {
 function GetUser(id) {
   $.ajax({
     url: "/api/v1/users" + id,
-    typy: "GET",
+    type: "GET",
     contentType: "application/json",
     success: (user) {
       var form = document.forms["user"];
@@ -33,15 +33,32 @@ function GetUser(id) {
 function CreateUser(name, age) {
   $.ajax({
     url: "/api/v1/users",
-    typy: "POST",
+    type: "POST",
     contentType: "application/json",
     data: JSON.stringify({
       name: name,
       age: age
     }),
     success: (user) {
-      reset();
+      reset();s
       $("table tbody").append(row(user));
+    }
+  })
+}
+
+// Изменение пользователя
+function EditUser(id, name, age) {
+  $.ajax({
+    url: "/api/v1/users",
+    type: "PUT",
+    contentType: "application/json",
+    data: JSON.stringify({
+      id: id,
+      name: name,
+      age: age
+    }),
+    success: (user) {
+      reset();
     }
   })
 }
