@@ -44,7 +44,7 @@ app.post("/api/v1/users", jsonParser, (req, res) => {
   users.push(user);
 
   var data = JSON.stringify(users);
-  fs.writFileSync("users.json", data);
+  fs.writeFileSync("users.json", data);
   res.send(user);
 })
 
@@ -62,7 +62,7 @@ app.delete("/api/v1/users/:id", (req, res) => {
   if (index > -1){
     var user = users.splice(index, 1)[0];
     var data = JSON.stringify(users);
-    fs.writFileSync("users.json", data);
+    fs.writeFileSync("users.json", data);
     res.send(user);
   } else {
     res.status(404).send("Пользователь не найден");
@@ -89,7 +89,7 @@ app.put("/api/v1/users", jsonParser, (req, res) => {
     user.name = name;
     user.age = age;
     var data = JSON.stringify(users);
-    fs.writFileSync("users.json", data);
+    fs.writeFileSync("users.json", data);
     res.send(user);
   } else {
     res.status(404).send("Пользователь не найден");

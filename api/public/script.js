@@ -17,7 +17,7 @@ function GetUsers() {
 // Получение одного пользователя
 function GetUser(id) {
   $.ajax({
-    url: "/api/v1/users" + id,
+    url: "/api/v1/users/" + id,
     type: "GET",
     contentType: "application/json",
     success: (user) => {
@@ -58,7 +58,7 @@ function EditUser(id, name, age) {
       age: age
     }),
     success: (user) => {
-      reset();
+      //reset();
       $("tr[data-rowid='" + user.id + "']").replaceWith(row(user));
     }
   })
@@ -67,7 +67,7 @@ function EditUser(id, name, age) {
 // Удаление пользователя
 function DeleteUser(id) {
   $.ajax({
-    url: "/api/v1/users" + id,
+    url: "/api/v1/users/" + id,
     type: "DELETE",
     contentType: "application/json",
     success: (user) => {
@@ -81,8 +81,8 @@ function DeleteUser(id) {
 var row = function (user) {
   return "<tr data-rowid='" + user.id + "'><td>" + user.id + "</td>" +
          "<td>" + user.name + "</td><td>" + user.age + "</td>" +
-         "<td><a class='editLink' data-id='" + user.id + "'>Изменить</a> | " +
-         "<a class='removeLink' data-id='" + user.id + "'>Удалить</a></td></tr>";
+         "<td><a class='editLink btn btn-sm btn-secondary text-light' data-id='" + user.id + "'>Изменить</a> " +
+         "<a class='removeLink btn btn-sm btn-secondary text-light' data-id='" + user.id + "'>Удалить</a></td></tr>";
 }
 
 // Сброс формы
@@ -92,14 +92,14 @@ function reset() {
   form.elements["id"].value = 0;
 }
 
-// При нажатии на кнопку Сбросить очищаем форму
-$("#reset").click( (e) => {
+// При нажатии на кнопку Очистить - очищаем форму
+$("#reset").click( function (e) {
   e.preventDefault();
   reset();
 })
 
-// При нажатии на кнопку Сохранить добавляем или изменяем пользователя
-$("form").submit( (e) => {
+// При нажатии на кнопку Сохранить - добавляем или изменяем пользователя
+$("form").submit( function (e) {
   e.preventDefault();
   var id = this.elements["id"].value;
   var name = this.elements["name"].value;
@@ -112,14 +112,14 @@ $("form").submit( (e) => {
 })
 
 // При нажатии на кнопку Изменить - получаем пользователя в форму
-$("body").on("click", ".editLink", () => {
-  var id = $(this).date("id");
+$("body").on("click", ".editLink", function () {
+  var id = $(this).data("id");
   GetUser(id);
 });
 
 // При нажатии на кнопку Удалить - пользователь удаляется
-$("body").on("click", ".removeLink", () => {
-  var id = $(this).date("id");
+$("body").on("click", ".removeLink", function () {
+  var id = $(this).data("id");
   DeleteUser(id);
 });
 
