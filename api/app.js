@@ -18,7 +18,7 @@ app.get("/api/v1/users/:id", (req, res) => {
   var content = fs.readFileSync("users.json", "utf8");
   var users = JSON.parse(content);
   var user = null;
-  for (var i = 0; i < users.lenght; i++) {
+  for (var i = 0; i < users.length; i++) {
     if(users[i].id == id){
       user = users[i];
       break;
