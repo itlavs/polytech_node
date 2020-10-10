@@ -40,7 +40,7 @@ function CreateUser(name, age) {
       age: age
     }),
     success: (user) {
-      reset();s
+      reset();
       $("table tbody").append(row(user));
     }
   })
@@ -59,6 +59,7 @@ function EditUser(id, name, age) {
     }),
     success: (user) {
       reset();
+      $("tr[data-rowid='" + user.id + "']").replaceWith(row(user));
     }
-  })
+  })  
 }
