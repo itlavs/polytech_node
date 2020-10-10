@@ -14,3 +14,7 @@
 10:19:14 GET /about
 10:23:7 GET /about
 10:23:18 GET /about
+16:0:41 GET /favicon.ico
+16:0:45 GET /about
+16:0:51 GET /contacts
+16:0:58 GET /contacts.html
