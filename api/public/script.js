@@ -28,3 +28,20 @@ function GetUser(id) {
     }
   })
 }
+
+// Добавление пользователя
+function CreateUser(name, age) {
+  $.ajax({
+    url: "/api/v1/users",
+    typy: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({
+      name: name,
+      age: age
+    }),
+    success: (user) {
+      reset();
+      $("table tbody").append(row(user));
+    }
+  })
+}
