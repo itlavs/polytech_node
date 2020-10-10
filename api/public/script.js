@@ -110,3 +110,18 @@ $("form").submit( (e) => {
     EditUser(id, name, age);
   }
 })
+
+// При нажатии на кнопку Изменить - получаем пользователя в форму
+$("body").on("click", ".editLink", () => {
+  var id = $(this).date("id");
+  GetUser(id);
+});
+
+// При нажатии на кнопку Удалить - пользователь удаляется
+$("body").on("click", ".removeLink", () => {
+  var id = $(this).date("id");
+  DeleteUser(id);
+});
+
+// Загрузка пользователей
+GetUsers();
