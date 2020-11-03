@@ -20,4 +20,5 @@
 - [node](https://github.com/itlavs/polytech_node/tree/master/node) - несколько простейших серверов на Node.js
 - [express](https://github.com/itlavs/polytech_node/tree/master/express) - изучение основ работы с библиотекой Express
 - [api](https://github.com/itlavs/polytech_node/tree/master/api) - управление списком пользователей (сервер: Express + Rest API + JSON, клиент: Bootstrap + JS + AJAX)
+- [db](https://github.com/itlavs/polytech_node/tree/master/db) - продолжение предыдущего проекта api с заменой JSON  на базу данных SQLite (в разработке)
 <img src="https://github.com/itlavs/polytech_node/blob/master/api/screenshot.png" alt="Управление списком пользователей">
