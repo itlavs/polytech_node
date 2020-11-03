@@ -30,21 +30,19 @@ function readDB(users){
       users = [];
       var count = 0;
       db.all('SELECT COUNT(id) as count_id FROM users', function(err, rows){
-          var count = rows[0]["count_id"];
-          i = 0;
-          db.each('SELECT id, name, age FROM users', function(err, row) {
-            //console.log(row.id + " " + row.name + " " + row.age);
-            var user = {id:row.id, name:row.name, age:row.age};
-            // console.log(user);
-            users.push(user);
-            i++;
-            console.log(i);
-            if (i == count) {
-             resolve(users);
-            }
-          });
+        var count = rows[0]["count_id"];
+        i = 0;
+        db.each('SELECT id, name, age FROM users', function(err, row) {
+          //console.log(row.id + " " + row.name + " " + row.age);
+          var user = {id:row.id, name:row.name, age:row.age};
+          // console.log(user);
+          users.push(user);
+          i++;
+          if (i == count) {
+           resolve(users);
+          }
+        });
       });
-
     });
   });
 }
@@ -53,19 +51,15 @@ function readDB(users){
 app.get("/api/v1/users", (req, res) => {
   // var content = fs.readFileSync("users.json", "utf8");
   // var users = JSON.parse(content);
-
-
   readDB().then(
     result => {
         console.log(result);
         res.send(result);
     },
     error => {
-      res.status(404).send("Возникли ошибка при получении списка пользователей");
+      res.status(404).send("Ошибка при получении списка пользователей");
     }
   );
-
-
 })
 
 app.get("/api/v1/users/:id", (req, res) => {
