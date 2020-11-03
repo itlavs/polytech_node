@@ -28,13 +28,23 @@ function readDB(users){
   return new Promise(function(resolve, reject) {
     db.serialize(function() {
       users = [];
-      db.each('SELECT * FROM users', function(err, row) {
-        //console.log(row.id + " " + row.name + " " + row.age);
-        var user = {id:row.id, name:row.name, age:row.age};
-        // console.log(user);
-        users.push(user);
-        resolve(users);
+      var count = 0;
+      db.all('SELECT COUNT(id) as count_id FROM users', function(err, rows){
+          var count = rows[0]["count_id"];
+          i = 0;
+          db.each('SELECT id, name, age FROM users', function(err, row) {
+            //console.log(row.id + " " + row.name + " " + row.age);
+            var user = {id:row.id, name:row.name, age:row.age};
+            // console.log(user);
+            users.push(user);
+            i++;
+            console.log(i);
+            if (i == count) {
+             resolve(users);
+            }
+          });
       });
+
     });
   });
 }
