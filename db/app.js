@@ -52,9 +52,8 @@ app.get("/api/v1/users", (req, res) => {
   // var content = fs.readFileSync("users.json", "utf8");
   // var users = JSON.parse(content);
   readDB().then(
-    result => {
-        console.log(result);
-        res.send(result);
+    users => {
+        res.send(users);
     },
     error => {
       res.status(404).send("Ошибка при получении списка пользователей");
@@ -63,23 +62,31 @@ app.get("/api/v1/users", (req, res) => {
 })
 
 app.get("/api/v1/users/:id", (req, res) => {
-  var id = req.params.id;
   // var content = fs.readFileSync("users.json", "utf8");
   // var users = JSON.parse(content);
-  var users;
-  readDB(users);
-  var user = null;
-  for (var i = 0; i < users.length; i++) {
-    if(users[i].id == id){
-      user = users[i];
-      break;
+  readDB().then(
+    users => {
+      var id = req.params.id;
+      var user = null;
+      console.log(users);
+      console.log(users.length);
+      for (var i = 0; i < users.length; i++) {
+        if(users[i].id == id){
+          user = users[i];
+          break;
+        }
+      }
+      if (user){
+        res.send(user);
+      } else {
+        res.status(404).send("Пользователь не найден");
+      }
+    },
+    error => {
+      res.status(404).send("Ошибка при получении списка пользователей");
     }
-  }
-  if (user){
-    res.send(user);
-  } else {
-    res.status(404).send("Пользователь не найден");
-  }
+  );
+
 })
 
 app.post("/api/v1/users", jsonParser, (req, res) => {
@@ -90,42 +97,53 @@ app.post("/api/v1/users", jsonParser, (req, res) => {
 
   // var content = fs.readFileSync("users.json", "utf8");
   // var users = JSON.parse(content);
-  var users;
-  readDB(users);
-  if (users.length > 0){
-    var id = Math.max.apply(Math, users.map((obj) => {return obj.id}));
-    user.id = id + 1;
-  } else {
-    user.id = 1;
-  }
-  users.push(user);
+  readDB().then(
+    users => {
+      if (users.length > 0){
+        var id = Math.max.apply(Math, users.map((obj) => {return obj.id}));
+        user.id = id + 1;
+      } else {
+        user.id = 1;
+      }
+      users.push(user);
 
-  var data = JSON.stringify(users);
-  fs.writeFileSync("users.json", data);
-  res.send(user);
+      var data = JSON.stringify(users);
+      fs.writeFileSync("users.json", data);
+      res.send(user);
+    },
+    error => {
+      res.status(404).send("Ошибка при получении списка пользователей");
+    }
+  );
+
 })
 
 app.delete("/api/v1/users/:id", (req, res) => {
   var id = req.params.id;
   // var content = fs.readFileSync("users.json", "utf8");
   // var users = JSON.parse(content);
-  var users;
-  readDB(users);
-  var index = -1;
-  for (var i = 0; i < users.length; i++) {
-    if(users[i].id == id){
-      index = i;
-      break;
+  readDB().then(
+    users => {
+      var index = -1;
+      for (var i = 0; i < users.length; i++) {
+        if(users[i].id == id){
+          index = i;
+          break;
+        }
+      }
+      if (index > -1){
+        var user = users.splice(index, 1)[0];
+        var data = JSON.stringify(users);
+        fs.writeFileSync("users.json", data);
+        res.send(user);
+      } else {
+        res.status(404).send("Пользователь не найден");
+      }
+    },
+    error => {
+      res.status(404).send("Ошибка при получении списка пользователей");
     }
-  }
-  if (index > -1){
-    var user = users.splice(index, 1)[0];
-    var data = JSON.stringify(users);
-    fs.writeFileSync("users.json", data);
-    res.send(user);
-  } else {
-    res.status(404).send("Пользователь не найден");
-  }
+  );
 })
 
 app.put("/api/v1/users", jsonParser, (req, res) => {
@@ -136,25 +154,30 @@ app.put("/api/v1/users", jsonParser, (req, res) => {
 
   // var content = fs.readFileSync("users.json", "utf8");
   // var users = JSON.parse(content);
-  var users;
-  readDB(users);
-  var user = null;
-  for (var i = 0; i < users.length; i++) {
-    if(users[i].id == id){
-      user = users[i];
-      break;
-    }
-  }
+  readDB().then(
+    users => {
+      var user = null;
+      for (var i = 0; i < users.length; i++) {
+        if(users[i].id == id){
+          user = users[i];
+          break;
+        }
+      }
 
-  if(user){
-    user.name = name;
-    user.age = age;
-    var data = JSON.stringify(users);
-    fs.writeFileSync("users.json", data);
-    res.send(user);
-  } else {
-    res.status(404).send("Пользователь не найден");
-  }
+      if(user){
+        user.name = name;
+        user.age = age;
+        var data = JSON.stringify(users);
+        fs.writeFileSync("users.json", data);
+        res.send(user);
+      } else {
+        res.status(404).send("Пользователь не найден");
+      }
+    },
+    error => {
+      res.status(404).send("Ошибка при получении списка пользователей");
+    }
+  );
 });
 
 // Слушаем порт 3000
