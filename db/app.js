@@ -18,7 +18,7 @@ db.serialize(function() {
   db.run('INSERT INTO users VALUES (3, "Lena", 18)');
 
   db.each('SELECT * FROM users', function(err, row) {
-    console.log(row.id + " " + row.name + " " + row.age);
+    //console.log(row.id + " " + row.name + " " + row.age);
   });
 });
 var users;
@@ -61,6 +61,16 @@ function addToDB(user){
   });
 }
 
+// Изменение записи в базе данных
+function editInDB(user){
+  return new Promise(function(resolve, reject) {
+    db.serialize(function() {
+     db.run('UPDATE users SET name = ?, age = ? WHERE id = ?', [user.name, user.age, user.id]);
+     resolve(user);
+    });
+  });
+}
+
 // Получение списка пользователей
 app.get("/api/v1/users", (req, res) => {
   // var content = fs.readFileSync("users.json", "utf8");
@@ -82,8 +92,8 @@ app.get("/api/v1/users/:id", (req, res) => {
     users => {
       var id = req.params.id;
       var user = null;
-      console.log(users);
-      console.log(users.length);
+      //console.log(users);
+      //console.log(users.length);
       for (var i = 0; i < users.length; i++) {
         if(users[i].id == id){
           user = users[i];
@@ -130,8 +140,7 @@ app.post("/api/v1/users", jsonParser, (req, res) => {
         error => {
           res.status(404).send("Ошибка при добавлении пользователя");
         }
-      )
-
+      );
     },
     error => {
       res.status(404).send("Ошибка при получении списка пользователей");
@@ -189,9 +198,16 @@ app.put("/api/v1/users", jsonParser, (req, res) => {
       if(user){
         user.name = name;
         user.age = age;
-        var data = JSON.stringify(users);
-        fs.writeFileSync("users.json", data);
-        res.send(user);
+        editInDB(user).then(
+          dbUser => {
+            // var data = JSON.stringify(users);
+            // fs.writeFileSync("users.json", data);
+            res.send(user);
+          },
+          error => {
+            res.status(404).send("Ошибка при изменении пользователя");
+          }
+        );
       } else {
         res.status(404).send("Пользователь не найден");
       }
