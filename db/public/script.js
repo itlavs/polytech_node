@@ -9,7 +9,9 @@ function getUsers() {
       $.each(users, (index, user) => {
         rows += row(user);
       });
-      $("table tbody").append(rows);
+      if (rows != "") {
+        $("table tbody").append(rows);        
+      }
     }
   });
 }

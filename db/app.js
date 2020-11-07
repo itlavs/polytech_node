@@ -7,20 +7,8 @@ var app = express();
 var jsonParser = bodyParser.json();
 app.use(express.static(__dirname + "/public"));
 //var db = new sqlite3.Database(':memory:');
-var db = new sqlite3.Database('db');
+var db = new sqlite3.Database('db.db');
 
-// Создание базы данных
-db.serialize(function() {
-  db.run('DROP TABLE users');
-  db.run('CREATE TABLE users(id INT, name TEXT, age INT)');
-  db.run('INSERT INTO users VALUES (1, "Ivan", 23)');
-  db.run('INSERT INTO users VALUES (2, "Sergey", 20)');
-  db.run('INSERT INTO users VALUES (3, "Lena", 18)');
-
-  db.each('SELECT * FROM users', function(err, row) {
-    //console.log(row.id + " " + row.name + " " + row.age);
-  });
-});
 var users;
 
 // Чтение базы данных
@@ -234,6 +222,18 @@ app.put("/api/v1/users", jsonParser, (req, res) => {
     }
   );
 });
+
+app.use("/setup", function(request, response){
+  db.serialize(function() {
+    db.run('CREATE TABLE users(id INT, name TEXT, age INT)');
+    db.run('INSERT INTO users VALUES(1, "Введите имя", 0)');
+
+    db.each('SELECT * FROM users', function(err, row) {
+      console.log(row.id + " " + row.name + " " + row.age);
+    });
+  });
+  response.redirect("/setup.html")
+})
 
 // Слушаем порт 3000
 app.listen(3000, () => {
