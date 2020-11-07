@@ -47,6 +47,20 @@ function readDB(users){
   });
 }
 
+// Доавление в базу данных
+function addToDB(user){
+  return new Promise(function(resolve, reject) {
+    db.serialize(function() {
+      var count = 0;
+       db.all('SELECT COUNT(id) as count_id FROM users', function(err, rows){
+         var count = rows[0]["count_id"];
+         db.run('INSERT INTO users VALUES (?, ?, ?)', [count, user.name, user.age]);
+         resolve(user);
+       });
+    });
+  });
+}
+
 // Получение списка пользователей
 app.get("/api/v1/users", (req, res) => {
   // var content = fs.readFileSync("users.json", "utf8");
@@ -107,9 +121,17 @@ app.post("/api/v1/users", jsonParser, (req, res) => {
       }
       users.push(user);
 
-      var data = JSON.stringify(users);
-      fs.writeFileSync("users.json", data);
-      res.send(user);
+      // var data = JSON.stringify(users);
+      // fs.writeFileSync("users.json", data);
+      addToDB(user).then(
+        dbUser => {
+          res.send(dbUser);
+        },
+        error => {
+          res.status(404).send("Ошибка при добавлении пользователя");
+        }
+      )
+
     },
     error => {
       res.status(404).send("Ошибка при получении списка пользователей");
