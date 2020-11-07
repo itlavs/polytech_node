@@ -71,6 +71,16 @@ function editInDB(user){
   });
 }
 
+// Удаление записи в базе данных
+function deleteFromDB(user){
+  return new Promise(function(resolve, reject) {
+    db.serialize(function() {
+     db.run('DELETE FROM users WHERE id = ?', [user.id]);
+     resolve(user);
+    });
+  });
+}
+
 // Получение списка пользователей
 app.get("/api/v1/users", (req, res) => {
   // var content = fs.readFileSync("users.json", "utf8");
@@ -164,9 +174,16 @@ app.delete("/api/v1/users/:id", (req, res) => {
       }
       if (index > -1){
         var user = users.splice(index, 1)[0];
-        var data = JSON.stringify(users);
-        fs.writeFileSync("users.json", data);
-        res.send(user);
+        // var data = JSON.stringify(users);
+        // fs.writeFileSync("users.json", data);
+        deleteFromDB(user).then(
+          user => {
+            res.send(user);
+          },
+          error => {
+            res.status(404).send("Ошибка при удалении пользователя");
+          }
+        );
       } else {
         res.status(404).send("Пользователь не найден");
       }
