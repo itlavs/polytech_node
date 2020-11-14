@@ -9,6 +9,8 @@ app.use(express.static(__dirname + "/public"));
 //var db = new sqlite3.Database(':memory:');
 var db = new sqlite3.Database('db.db');
 
+var marketplace = require("./models/marketplace");
+
 // Слушаем порт 3000
 app.listen(3000, () => {
   console.log("Сервер ожидает подключения...");
