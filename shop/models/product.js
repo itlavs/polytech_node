@@ -1,17 +1,16 @@
-export class Product() {
-  var id = 0;
-  var name = "";
-  var articule = "";
-  var price = 0.00;
-  var photo = "";
-  var desctiption = "";
+module.exports = class Product{
+
 
   constructor(name, price) {
+    this.id = 0;
     this.name = name;
     this.price = price;
+    this.articule = "";
+    this.photo = "";
+    this.desctiption = "";
   }
 
-  function count() {
+  count() {
     return 0;
   }
 }

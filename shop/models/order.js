@@ -1,16 +1,14 @@
-export class Order() {
-  var owner = 0;
-  var total = 0.00;
-
+module.exports = class Order{
   constructor() {
+    this.owner = 0;
+    this.total = 0.00;
+  }
+
+  pay() {
 
   }
 
-  function pay() {
-
-  }
-
-  function cancel() {
+  cancel() {
 
   }
 }

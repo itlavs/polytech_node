@@ -1,6 +1,7 @@
-export class Detail() {
-  var order = 0;
-  var product = 0;
-  var count = 0;
-  var sum = 0.00;
+module.exports = class Detail{
+  constructor() {
+    this.order = 0;
+    this.product = 0;
+    this.count = 0;
+    this.sum = 0.00;  }
 }

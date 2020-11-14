@@ -1,24 +1,23 @@
-export class Basket() {
-  var owner = 0;
-  var goods = [];
+module.exports = class Basket{
 
   constructor() {
+    this.owner = 0;
+    this.goods = [];
+  }
+
+  clear() {
 
   }
 
-  function clear() {
+  order() {
 
   }
 
-  function order() {
+  add(id) {
 
   }
 
-  function add(id) {
-
-  }
-
-  function delete(id) {
+  delete(id) {
 
   }
 }

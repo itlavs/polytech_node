@@ -1,38 +1,34 @@
-var goods = [];
-
-class Marketplace() {
+module.exports = class Marketplace{
 
   constructor() {
-
+    this.goods = [];
   }
 
-  function catalog() {
+  catalog() {
     return goods;
   }
 
-  function popular() {
+  popular() {
 
   }
 
-  function sales() {
+  sales() {
 
   }
 
-  function add(product) {
+  add(product) {
     goods.push(product);
   }
 
-  function get(id){
+  get(id){
 
   }
 
-  function update(product) {
+  update(product) {
 
   }
 
-  function delete(id) {
+  delete(id) {
 
   }
 }
-
-export = {Marketplace}
