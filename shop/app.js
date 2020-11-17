@@ -12,9 +12,9 @@ var db = new sqlite3.Database('db.db');
 var marketplace = require("./controllers/marketplace");
 var basket = require("./controllers/basket");
 
-var marketplace_routes = require("./routes/marketplace");
-var basket_routes = require("./routes/basket");
-var order_routes = require("./routes/order");
+require("./routes/marketplace")(app);
+require("./routes/basket")(app);
+require("./routes/order")(app);
 
 // Слушаем порт 3000
 app.listen(3000, () => {
