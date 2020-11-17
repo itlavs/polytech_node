@@ -5,14 +5,14 @@ module.exports = class Marketplace{
   }
 
   catalog() {
-    return goods;
+    return this.goods;
   }
 
   popular() {
 
   }
 
-  sales() {
+  sale() {
 
   }
 
