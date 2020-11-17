@@ -3,5 +3,6 @@ module.exports = class Detail{
     this.order = 0;
     this.product = 0;
     this.count = 0;
-    this.sum = 0.00;  }
+    this.sum = 0.00;
+  }
 }
