@@ -1,5 +1,8 @@
 var marketplace = require("../controllers/marketplace");
 var product_module = require("../models/product");
+var bodyParser = require("body-parser");
+
+var jsonParser = bodyParser.json();
 
 module.exports = function(app) {
   app.use("/marketplace", function(request, response){
@@ -18,13 +21,13 @@ module.exports = function(app) {
     res.send(marketplace.sale());
   })
 
-  app.post("api/v1/marketplace/add", function(request, response){
+  app.post("api/v1/marketplace/add", jsonParser, function(request, response){
     var product = new product_module("Арбуз", 50.00);
     marketplace.add(product);
     res.send(marketplace.catalog());
   })
 
-  app.put("api/v1/marketplace/:id/update", function(request, response){
+  app.put("api/v1/marketplace/:id/update", jsonParser, function(request, response){
     var id = req.params.id;
     // product = marketplace.get(id);
     var product = new product_module("Арбуз", 50.00);

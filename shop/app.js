@@ -6,12 +6,12 @@ var sqlite3 = require("sqlite3").verbose();
 var app = express();
 var jsonParser = bodyParser.json();
 app.use(express.static(__dirname + "/public"));
-//var db = new sqlite3.Database(':memory:');
 var db = new sqlite3.Database('db.db');
 
 var marketplace = require("./controllers/marketplace");
 var basket = require("./controllers/basket");
 
+require("./routes/setup")(app, db);
 require("./routes/marketplace")(app);
 require("./routes/basket")(app);
 require("./routes/order")(app);
