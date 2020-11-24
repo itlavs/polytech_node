@@ -5,15 +5,15 @@ module.exports = class Marketplace{
   }
 
   async catalog() {
-    return await db.products().findAll;
+    return await db.products().findAll();
   }
 
   async popular() {
-    return await db.popular().findAll;
+    return await db.popular().findAll();
   }
 
   async sale() {
-    return await db.sales().findAll;
+    return await db.sales().findAll();
   }
 
   async add(product) {
