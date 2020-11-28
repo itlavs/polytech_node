@@ -1,23 +1,23 @@
-module.exports = class Marketplace{
+class Marketplace{
 
   constructor(db) {
     this.db = db;
   }
 
   async catalog() {
-    return await db.products().findAll();
+    return await this.db.products().findAll();
   }
 
   async popular() {
-    return await db.popular().findAll();
+    return await this.db.popular().findAll();
   }
 
   async sale() {
-    return await db.sales().findAll();
+    return await this.db.sales().findAll();
   }
 
   async add(product) {
-    await db.products().bulkCreate([
+    await this.db.products().bulkCreate([
       { id: product.id,
         name: product.name,
         price: product.price,
@@ -29,7 +29,7 @@ module.exports = class Marketplace{
   }
 
   get(id){
-    return db.products().findAll({
+    return this.db.products().findAll({
       where: {
         id: id
       }
@@ -37,7 +37,7 @@ module.exports = class Marketplace{
   }
 
   async update(product) {
-    await db.products().update(
+    await this.db.products().update(
       { id: product.id,
         name: product.name,
         price: product.price,
@@ -52,10 +52,12 @@ module.exports = class Marketplace{
   }
 
   async delete(id) {
-    await db.products().destroy({
+    await this.db.products().destroy({
       where: {
         id: id
       }
     });
   }
 }
+
+module.exports = Marketplace;

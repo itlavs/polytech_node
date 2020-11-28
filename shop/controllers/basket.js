@@ -1,4 +1,4 @@
-module.exports = class Basket{
+class Basket{
 
   constructor() {
     this.owner = 0;
@@ -21,3 +21,5 @@ module.exports = class Basket{
 
   }
 }
+
+module.exports = Basket;

@@ -2,15 +2,15 @@ var express = require("express");
 var app = express();
 app.use(express.static(__dirname + "/public"));
 
-require("./db");
-require("./controllers/marketplace");
-require("./controllers/basket")
+const DB = require("./db");
+const Marketplace = require("./controllers/marketplace");
+const Basket = require("./controllers/basket");
 
-var db = new DB();
-var marketplace = new Marketplace(db);
-var basket = new Basket();
+let db = new DB();
+let marketplace = new Marketplace(db);
+let basket = new Basket();
 
-require("./routes/marketplace")(app);
+require("./routes/marketplace")(app, db);
 require("./routes/basket")(app);
 require("./routes/order")(app);
 

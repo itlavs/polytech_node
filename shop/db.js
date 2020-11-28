@@ -1,4 +1,4 @@
-module.exports = class DB {
+class DB {
 
   constructor() {
     const Sequelise = require('sequelize');
@@ -77,3 +77,5 @@ module.exports = class DB {
     return this.SALES;
   }
 }
+
+module.exports = DB;
